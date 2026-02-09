@@ -1,0 +1,14 @@
+service: vch-soc
+
+frameworkVersion: "4"
+
+provider:
+  name: aws
+  runtime: python3.12
+  stage: ${file(${opt:env}.yml):stage}
+  region: ${file(${opt:env}.yml):region}
+  profile: ${file(${opt:env}.yml):awsProfile}
+
+functions:
+  processInboundCall:
+    handler: lambdas/handler.main

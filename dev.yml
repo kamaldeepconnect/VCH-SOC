@@ -1,0 +1,10 @@
+stage: dev
+region: us-east-1
+awsProfile: dev
+
+connect:
+  instanceId: a76cb78e-f63f-4190-8d92-a38d1d2f597b
+
+dynamodb:
+  tablePrefix: dev-
+
