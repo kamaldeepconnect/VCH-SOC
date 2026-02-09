@@ -20,4 +20,8 @@ functions:
       CONNECT_INSTANCE_ID: ${self:custom.connectInstanceId}
       TABLE_PREFIX: ${self:custom.tablePrefix}
 
-service: vch-soc
+
+resources:
+  Resources:
+    ${file(dynamodb/tables.yml)}
+
