@@ -20,8 +20,7 @@ functions:
       CONNECT_INSTANCE_ID: ${self:custom.connectInstanceId}
       TABLE_PREFIX: ${self:custom.tablePrefix}
 
-
 resources:
   Resources:
-    ${file(dynamodb/tables.yml)}
-
+    <<: ${file(dynamodb/tables.yml)}
+    <<: ${file(connect/contact-flows.yml)}
