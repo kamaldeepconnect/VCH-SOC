@@ -1,4 +1,4 @@
-service: vch-soc
+service: VCH-SOC
 
 frameworkVersion: "4"
 

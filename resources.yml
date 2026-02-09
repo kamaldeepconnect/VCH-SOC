@@ -1,0 +1,28 @@
+Resources:
+  VchSocCallTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tablePrefix}VchSocCallRecords
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+
+  VchSocInboundContactFlow:
+    Type: AWS::Connect::ContactFlow
+    Properties:
+      InstanceArn:
+        Fn::Sub:
+          - arn:aws:connect:${AWS::Region}:${AWS::AccountId}:instance/${InstanceId}
+          - InstanceId: ${self:custom.connectInstanceId}
+      Name: VCH-SOC-Inbound-Flow
+      Type: CONTACT_FLOW
+      Content: |
+        {
+          "Version": "2019-10-30",
+          "StartAction": "start",
+          "Actions": []
+        }

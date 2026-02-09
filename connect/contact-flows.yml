@@ -1,0 +1,14 @@
+VchSocInboundContactFlow:
+  Type: AWS::Connect::ContactFlow
+  Properties:
+    InstanceArn: arn:aws:connect:${self:provider.region}:${aws:accountId}:instance/${self:custom.connectInstanceId}
+    Name: VCH-SOC-Inbound-Flow
+    Type: CONTACT_FLOW
+    Content: |
+      {
+        "Version": "2019-10-30",
+        "StartAction": "start",
+        "Actions": []
+      }
+
+
