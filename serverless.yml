@@ -9,6 +9,15 @@ provider:
   region: ${file(${opt:env}.yml):region}
   profile: ${file(${opt:env}.yml):awsProfile}
 
+custom:
+  connectInstanceId: ${file(${opt:env}.yml):connect.instanceId}
+  tablePrefix: ${file(${opt:env}.yml):dynamodb.tablePrefix}
+
 functions:
   processInboundCall:
     handler: lambdas/handler.main
+    environment:
+      CONNECT_INSTANCE_ID: ${self:custom.connectInstanceId}
+      TABLE_PREFIX: ${self:custom.tablePrefix}
+
+service: vch-soc
