@@ -5,13 +5,13 @@ frameworkVersion: "4"
 provider:
   name: aws
   runtime: python3.12
-  stage: ${file(${opt:env}.yml):stage}
-  region: ${file(${opt:env}.yml):region}
-  profile: ${file(${opt:env}.yml):awsProfile}
+  stage: ${file(${opt:stage}.yml):stage}
+  region: ${file(${opt:stage}.yml):region}
+  profile: ${file(${opt:stage}.yml):awsProfile}
 
 custom:
-  connectInstanceId: ${file(${opt:env}.yml):connect.instanceId}
-  tablePrefix: ${file(${opt:env}.yml):dynamodb.tablePrefix}
+  connectInstanceId: ${file(${opt:stage}.yml):connect.instanceId}
+  tablePrefix: ${file(${opt:stage}.yml):dynamodb.tablePrefix}
 
 functions:
   processInboundCall:
@@ -19,8 +19,11 @@ functions:
     environment:
       CONNECT_INSTANCE_ID: ${self:custom.connectInstanceId}
       TABLE_PREFIX: ${self:custom.tablePrefix}
+  
+  Testoutboundcall:
+    handler: lambdas/handler.main
+    environment:
+      CONNECT_INSTANCE_ID: ${self:custom.connectInstanceId}
+      TABLE_PREFIX: ${self:custom.tablePrefix}
 
-resources:
-  Resources:
-    <<: ${file(dynamodb/tables.yml)}
-    <<: ${file(connect/contact-flows.yml)}
+resources: ${file(resources.yml)}
